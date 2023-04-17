@@ -1,36 +1,16 @@
 //FORMATO DO OBJETO
-const mensagens = [
-    {
-    from:'hugo',
-    to:'todos',
-    text:'entra na sala',
-    type:'status',
-    time:'08:10:10'
-},
-{
-    from:'hugo2',
-    to:'todos',
-    text:'boa tarde',
-    type:'mensage',
-    time:'08:10:10'
-},
-{
-    from:'hugo3',
-    to:'todos',
-    text:'oi',
-    type:'mensage',
-    time:'08:10:10'
-}
-]
-/*
-console.log(mensagens[1].from);
-console.log(mensagens[1].to);
-console.log(mensagens[1].text);
-console.log(mensagens[1].type);
-console.log(mensagens[1].time);
-*/
+let mensagens = [];
 
 axios.defaults.headers.common['Authorization'] = 'McQWjmMeuJz0NGuhi6A9PLjq';
+
+const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
+promise.then(mensagensRecebidas);
+
+function mensagensRecebidas(res){
+    console.log(res.data);
+    mensagens = res.data;
+    renderizarMensagem();
+}
 
 const usuario = prompt('Digite seu nome: ');
 
@@ -62,24 +42,30 @@ function deuErro(erro){
 
 
 // MOSTRAR MENSAGENS
-/*function renderizarMensagem(){
+function renderizarMensagem(){
 
     const ulMensagens = document.querySelector('.mensagensUol');
     ulMensagens.innerHTML = '';
 
     for( let i = 0; i < mensagens.length; i++){
 
+        let mensagem = mensagens[i];
+
         ulMensagens.innerHTML += `
 
             <li>
-                ${mensagens[i].from}  ${mensagens[i].to}  ${mensagens[i].text}  ${mensagens[i].type}  ${mensagens[i].time}
+                <span>${mensagens[i].time}</span> <strong>${mensagens[i].from}</strong>  para <strong>${mensagens[i].to}</strong>  ${mensagens[i].text}  ${mensagens[i].type}  
             </li>
 
         `;       
+    
     }
+    const ultimaMensagem = document.querySelector('li:last-child');
+    ultimaMensagem.scrollIntoView()
+    console.log(ultimaMensagem);
 }
-renderizarMensagem()
-*/
+
+
 //COLOCAR MENSAGEM DIGITADA NO CAMPO
 function adicionarMensagem(){
 
