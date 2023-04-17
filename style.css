@@ -1,0 +1,36 @@
+.container-maior{
+    width: 375px;
+    height: 667px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: pink;
+}
+.cabeçalho{
+    background-color:aqua;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ion-icon{
+    width: 42px;
+    height: 30px;
+}
+
+.container-uol{
+    width: 375px;
+    height: 507px;
+    background-color: brown;
+}
+.rodape{
+    width: 100%;
+    height: 80px;
+    background-color: bisque;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
