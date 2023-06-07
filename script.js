@@ -1,7 +1,7 @@
 //FORMATO DO OBJETO
 let mensagens = [];
 
-axios.defaults.headers.common['Authorization'] = 'McQWjmMeuJz0NGuhi6A9PLjq';
+axios.defaults.headers.common['Authorization'] = 'MRSv4l3Ta2JsNIwPXJwffeL3';
 
 const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
 promise.then(mensagensRecebidas);
@@ -53,7 +53,7 @@ function renderizarMensagem(){
 
         ulMensagens.innerHTML += `
 
-            <li>
+            <li data-test="message" >
                 <span>${mensagens[i].time}</span> <strong>${mensagens[i].from}</strong>  para <strong>${mensagens[i].to}</strong>  ${mensagens[i].text}  ${mensagens[i].type}  
             </li>
 
@@ -61,7 +61,7 @@ function renderizarMensagem(){
     
     }
     const ultimaMensagem = document.querySelector('li:last-child');
-    ultimaMensagem.scrollIntoView()
+    ultimaMensagem.scrollIntoView();
     console.log(ultimaMensagem);
 }
 
