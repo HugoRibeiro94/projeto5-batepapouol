@@ -3,8 +3,11 @@ let mensagens = [];
 
 axios.defaults.headers.common['Authorization'] = 'MRSv4l3Ta2JsNIwPXJwffeL3';
 
-const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
-promise.then(mensagensRecebidas);
+function carregarMensagens(){
+    const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
+    promise.then(mensagensRecebidas);
+}
+carregarMensagens()
 
 function mensagensRecebidas(res){
     console.log(res.data);
@@ -35,11 +38,26 @@ function receberUsuario(){
 }
 
 function deuErro(erro){
+    window.location.reload();
     console.log(`deu erro`);
     console.log(erro);
 }
 
+//status do usuario
+function statusUsuario(){
 
+    const participante = {
+        
+        name : usuario
+        
+    };
+
+    const status = axios.post('https://mock-api.driven.com.br/api/vm/uol/status',participante);
+    status.catch(deuErro);
+    console.log(participante);
+}
+
+setInterval(statusUsuario,5000)
 
 // MOSTRAR MENSAGENS
 function renderizarMensagem(){
@@ -54,7 +72,7 @@ function renderizarMensagem(){
         ulMensagens.innerHTML += `
 
             <li data-test="message" >
-                <span>${mensagens[i].time}</span> <strong>${mensagens[i].from}</strong>  para <strong>${mensagens[i].to}</strong>  ${mensagens[i].text}  ${mensagens[i].type}  
+                <span>(${mensagens[i].time})</span> <strong>${mensagens[i].from}</strong>  para <strong>${mensagens[i].to}</strong>  ${mensagens[i].text} 
             </li>
 
         `;       
@@ -62,9 +80,10 @@ function renderizarMensagem(){
     }
     const ultimaMensagem = document.querySelector('li:last-child');
     ultimaMensagem.scrollIntoView();
-    console.log(ultimaMensagem);
+    //console.log(ultimaMensagem);
 }
 
+setInterval(carregarMensagens,3000)
 
 //COLOCAR MENSAGEM DIGITADA NO CAMPO
 function adicionarMensagem(){
@@ -84,11 +103,13 @@ function adicionarMensagem(){
     resposta.then(recebeuMensagem);
     resposta.catch(naoRecebeu);
     console.log(resposta);
-    
+
+    carregarMensagens()
 }
 
 function recebeuMensagem(retorno){
     console.log(retorno);
+    
 }
 
 function naoRecebeu(eRRo){
